@@ -16,7 +16,7 @@ export default function InfoFacture() {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_DOLIBAR_API_URL}/bankilypay/consult/${reference}`,
+        `${process.env.NEXT_PUBLIC_DOLIBARR_API_URL}/bankilypay/consult/${reference}`,
         {
           headers: {
             DOLAPIKEY: process.env.NEXT_PUBLIC_DOLIBAR_API_KEY || "",

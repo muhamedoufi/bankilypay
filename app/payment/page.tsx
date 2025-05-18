@@ -11,10 +11,13 @@ export default function PaymentPage() {
     phoneNumber: "",
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<{
+    message: string;
+    details: any;
+  } | null>(null);
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -46,7 +49,7 @@ export default function PaymentPage() {
       }
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_DOLIBAR_API_URL}/bankilypay/payment`,
+        `${process.env.NEXT_PUBLIC_DOLIBARR_API_URL}/bankilypay/payment`,
         {
           method: "POST",
           headers: {
@@ -72,7 +75,7 @@ export default function PaymentPage() {
         message: "Paiement effectué avec succès",
         details: data,
       });
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message);
     } finally {
       setLoading(false);

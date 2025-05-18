@@ -16,7 +16,7 @@ export default function VerifyPayment() {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_DOLIBAR_API_URL}/bankilypay/verify/${transactionId}`
+        `${process.env.NEXT_PUBLIC_DOLIBARR_API_URL}/bankilypay/verify/${transactionId}`
       );
 
       const data = await response.json();
