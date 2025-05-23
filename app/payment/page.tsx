@@ -109,7 +109,7 @@ export default function PaymentPage() {
             htmlFor="reference"
             className="block text-sm font-medium text-gray-700"
           >
-            Référence de la facture
+            Référence OTP
           </label>
           <input
             type="text"

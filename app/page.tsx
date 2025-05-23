@@ -23,7 +23,7 @@ export default function Home() {
           href="/verify"
           className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded text-center"
         >
-          Verify Payment Status
+          Verifier l'etat de paiement
         </Link>
       </div>
     </div>

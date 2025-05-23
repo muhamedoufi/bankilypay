@@ -16,7 +16,12 @@ export default function VerifyPayment() {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_DOLIBARR_API_URL}/bankilypay/verify/${transactionId}`
+        `${process.env.NEXT_PUBLIC_DOLIBARR_API_URL}/bankilypay/verify/${transactionId}`,
+        {
+          headers: {
+            DOLAPIKEY: process.env.NEXT_PUBLIC_DOLIBAR_API_KEY || "",
+          },
+        }
       );
 
       const data = await response.json();
@@ -35,7 +40,9 @@ export default function VerifyPayment() {
 
   return (
     <div className="max-w-md mx-auto mt-10">
-      <h2 className="text-xl font-semibold mb-6">Verify Payment Status</h2>
+      <h2 className="text-xl font-semibold mb-6">
+        Verifier le statut de paiement
+      </h2>
 
       {paymentData ? (
         <div
@@ -46,7 +53,7 @@ export default function VerifyPayment() {
           }`}
         >
           <h3 className="font-bold">
-            Payment Status: {paymentData.status.toUpperCase()}
+            Status de paiement: {paymentData.status.toUpperCase()}
           </h3>
           {paymentData.status === "paid" ? (
             <>
@@ -54,7 +61,7 @@ export default function VerifyPayment() {
                 Transaction ID: <strong>{transactionId}</strong>
               </p>
               <p>
-                Payment Date:{" "}
+                Date de paiement:{" "}
                 <strong>
                   {new Date(paymentData.payment_date).toLocaleString()}
                 </strong>
@@ -66,7 +73,8 @@ export default function VerifyPayment() {
             </>
           ) : (
             <p>
-              The payment is still being processed. Please check back later.
+              Le paiement n’a pas encore été effectué. Veuillez réessayer plus
+              tard.
             </p>
           )}
 
@@ -74,7 +82,7 @@ export default function VerifyPayment() {
             onClick={() => router.push("/")}
             className="mt-4 bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded"
           >
-            Back to Home
+            Retourner à l'accueil
           </button>
         </div>
       ) : (
@@ -107,7 +115,7 @@ export default function VerifyPayment() {
             disabled={loading}
             className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded disabled:opacity-50"
           >
-            {loading ? "Verifying..." : "Verify Payment"}
+            {loading ? "Verification..." : "Verifier"}
           </button>
         </form>
       )}

@@ -27,7 +27,7 @@ export default function InfoFacture() {
 
       if (!response.ok) {
         throw new Error(
-          data.errorMessage ||
+          data.error.message ||
             "Échec de la récupération des informations de la facture"
         );
       }
@@ -93,11 +93,17 @@ export default function InfoFacture() {
               Date : <strong>{donneesFacture.date}</strong>
             </p>
             <p>
-              Montant : <strong>{donneesFacture.montant} MAD</strong>
+              Montant :{" "}
+              <strong>
+                {new Intl.NumberFormat("fr-MR", {
+                  style: "currency",
+                  currency: "MRU",
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }).format(parseFloat(donneesFacture.montant))}
+              </strong>
             </p>
-            <p>
-              Statut : <strong>{donneesFacture.statut}</strong>
-            </p>
+
             <p>
               Statut de paiement :{" "}
               <strong>
@@ -125,8 +131,9 @@ export default function InfoFacture() {
                       {formatNumber(ligne.unit_price)}
                       <br />
                       <span className="text-sm">
-                        Total : {formatNumber(ligne.total)} (TVA :{" "}
-                        {formatNumber(ligne.vat_rate)}%)
+                        Total : {formatNumber(ligne.total)}
+                        {/* (TVA :{" "}
+                        {formatNumber(ligne.vat_rate)}%) */}
                       </span>
                     </li>
                   );
