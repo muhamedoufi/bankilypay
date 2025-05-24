@@ -55,6 +55,7 @@ export default function PaymentPage() {
           headers: {
             "Content-Type": "application/json",
             DOLAPIKEY: process.env.NEXT_PUBLIC_DOLIBAR_API_KEY || "",
+            Accept: "application/json",
           },
           body: JSON.stringify({
             reference: formData.reference,
