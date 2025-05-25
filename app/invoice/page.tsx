@@ -6,6 +6,8 @@ export default function InfoFacture() {
   const [reference, setReference] = useState("");
   const [loading, setLoading] = useState(false);
   const [donneesFacture, setDonneesFacture] = useState<any>(null);
+  const [showRawData, setShowRawData] = useState(false);
+  const [rowData, setRowData] = useState(null);
   const [erreur, setErreur] = useState("");
   const router = useRouter();
 
@@ -24,19 +26,21 @@ export default function InfoFacture() {
         }
       );
       const data = await response.json();
+      setRowData(data);
 
       if (!response.ok) {
         throw new Error(
-          data.error.message ||
+          data?.error?.message ||
             "Échec de la récupération des informations de la facture"
         );
       }
 
-      if (data.errorCode !== 0) {
-        throw new Error(
-          data.errorMessage || "Erreur lors de la récupération de la facture"
-        );
-      }
+      // if (data.error?.errorCode !== 0) {
+      //   throw new Error(
+      //     data.error?.errorMessage ||
+      //       "Erreur lors de la récupération de la facture"
+      //   );
+      // }
 
       setDonneesFacture({
         reference: reference,
@@ -192,6 +196,25 @@ export default function InfoFacture() {
           </button>
         </form>
       )}
+
+      <div className="mt-6">
+        <button
+          onClick={() => setShowRawData(!showRawData)}
+          className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+        >
+          {showRawData
+            ? "Masquer les données brutes"
+            : "Afficher les données brutes"}
+        </button>
+
+        {showRawData && (
+          <div className="mt-3 bg-white p-4 rounded-lg border border-gray-200">
+            <pre className="text-xs  text-gray-900 p-3 rounded overflow-x-auto">
+              {JSON.stringify(rowData, null, 2)}
+            </pre>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="max-w-md mx-auto mt-10">
-      <h2 className="text-xl font-semibold mb-6">BankilyPay Prototype</h2>
+      <h2 className="text-xl font-semibold mb-6">Prototype techniques</h2>
 
       <div className="grid gap-4">
         <Link
